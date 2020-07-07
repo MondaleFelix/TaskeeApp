@@ -43,7 +43,7 @@ class HomeVC: UIViewController {
     }
     
     private func addBarItem(){
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "New", style: .plain, target: self, action: #selector(newButtonPressed))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "New", style: .done, target: self, action: #selector(newButtonPressed))
     }
 
     

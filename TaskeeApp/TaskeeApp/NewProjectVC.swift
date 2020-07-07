@@ -14,7 +14,16 @@ class NewProjectVC: UIViewController {
         super.viewDidLoad()
         title = "New Project"
         view.backgroundColor = .systemBackground
+        addBarButton()
     }
     
 
+    private func addBarButton(){
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveButtonPressed))
+    }
+    
+    @objc func saveButtonPressed(){
+        self.navigationController?.popViewController(animated: true)
+
+    }
 }
