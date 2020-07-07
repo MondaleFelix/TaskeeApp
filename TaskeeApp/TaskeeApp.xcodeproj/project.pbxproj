@@ -13,6 +13,7 @@
 		6F1DD3D624AAA9DC00B24B33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DD3D524AAA9DC00B24B33 /* Assets.xcassets */; };
 		6F1DD3D924AAA9DC00B24B33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DD3D724AAA9DC00B24B33 /* LaunchScreen.storyboard */; };
 		6F468CA924B4413400572BC4 /* NewProjectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F468CA824B4413400572BC4 /* NewProjectVC.swift */; };
+		6F468CAE24B460C400572BC4 /* MFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F468CAD24B460C400572BC4 /* MFTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		6F1DD3D824AAA9DC00B24B33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6F1DD3DA24AAA9DC00B24B33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F468CA824B4413400572BC4 /* NewProjectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectVC.swift; sourceTree = "<group>"; };
+		6F468CAD24B460C400572BC4 /* MFTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +60,38 @@
 			children = (
 				6F1DD3CC24AAA9D900B24B33 /* AppDelegate.swift */,
 				6F1DD3CE24AAA9D900B24B33 /* SceneDelegate.swift */,
-				6F1DD3D024AAA9D900B24B33 /* HomeVC.swift */,
+				6F468CAA24B4602200572BC4 /* Model */,
+				6F468CAB24B4602F00572BC4 /* View */,
+				6F468CAC24B4603D00572BC4 /* Controller */,
 				6F1DD3D524AAA9DC00B24B33 /* Assets.xcassets */,
 				6F1DD3D724AAA9DC00B24B33 /* LaunchScreen.storyboard */,
 				6F1DD3DA24AAA9DC00B24B33 /* Info.plist */,
-				6F468CA824B4413400572BC4 /* NewProjectVC.swift */,
 			);
 			path = TaskeeApp;
+			sourceTree = "<group>";
+		};
+		6F468CAA24B4602200572BC4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6F468CAB24B4602F00572BC4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6F468CAD24B460C400572BC4 /* MFTextField.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6F468CAC24B4603D00572BC4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6F1DD3D024AAA9D900B24B33 /* HomeVC.swift */,
+				6F468CA824B4413400572BC4 /* NewProjectVC.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +168,7 @@
 				6F1DD3CD24AAA9D900B24B33 /* AppDelegate.swift in Sources */,
 				6F1DD3CF24AAA9D900B24B33 /* SceneDelegate.swift in Sources */,
 				6F468CA924B4413400572BC4 /* NewProjectVC.swift in Sources */,
+				6F468CAE24B460C400572BC4 /* MFTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
