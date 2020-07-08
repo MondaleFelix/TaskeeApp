@@ -12,6 +12,7 @@ class NewProjectVC: UIViewController {
 
     let projectNameTF = MFTextField(placeholder: "Name your project")
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addBarButton()

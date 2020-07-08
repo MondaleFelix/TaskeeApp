@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func createHomeNC() -> UINavigationController {
-        let homeVC = HomeVC()
+        let homeVC = TodoVC()
         homeVC.title = "Projects"
         return UINavigationController(rootViewController: homeVC)
         
