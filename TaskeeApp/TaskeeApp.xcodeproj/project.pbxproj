@@ -16,6 +16,7 @@
 		6F3904D124B4844000691D9E /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3904D024B4844000691D9E /* ColorPickerView.swift */; };
 		6F3904D324B4849E00691D9E /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3904D224B4849E00691D9E /* ColorButton.swift */; };
 		6F3904D524B5D84500691D9E /* TodoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3904D424B5D84500691D9E /* TodoVC.swift */; };
+		6F3904D724B5E5BB00691D9E /* NewTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3904D624B5E5BB00691D9E /* NewTaskVC.swift */; };
 		6F468CA924B4413400572BC4 /* NewProjectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F468CA824B4413400572BC4 /* NewProjectVC.swift */; };
 		6F468CAE24B460C400572BC4 /* MFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F468CAD24B460C400572BC4 /* MFTextField.swift */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		6F3904D024B4844000691D9E /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		6F3904D224B4849E00691D9E /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
 		6F3904D424B5D84500691D9E /* TodoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoVC.swift; sourceTree = "<group>"; };
+		6F3904D624B5E5BB00691D9E /* NewTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskVC.swift; sourceTree = "<group>"; };
 		6F468CA824B4413400572BC4 /* NewProjectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectVC.swift; sourceTree = "<group>"; };
 		6F468CAD24B460C400572BC4 /* MFTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +104,7 @@
 				6F1DD3D024AAA9D900B24B33 /* HomeVC.swift */,
 				6F468CA824B4413400572BC4 /* NewProjectVC.swift */,
 				6F3904D424B5D84500691D9E /* TodoVC.swift */,
+				6F3904D624B5E5BB00691D9E /* NewTaskVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 			files = (
 				6F1DD3D124AAA9D900B24B33 /* HomeVC.swift in Sources */,
 				6F3904D524B5D84500691D9E /* TodoVC.swift in Sources */,
+				6F3904D724B5E5BB00691D9E /* NewTaskVC.swift in Sources */,
 				6F3904CF24B4798C00691D9E /* Colors.swift in Sources */,
 				6F1DD3CD24AAA9D900B24B33 /* AppDelegate.swift in Sources */,
 				6F3904D124B4844000691D9E /* ColorPickerView.swift in Sources */,
