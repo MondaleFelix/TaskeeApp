@@ -72,6 +72,8 @@ extension HomeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath) as! ProjectTableViewCell
         cell.colorView.backgroundColor = UIColor(red: 255/255, green: 193/255, blue: 79/255, alpha: 1)
+        cell.projectNameLabel.text = "SPD Industry collaboration Project"
+        cell.taskLabel.text = "5 pending tasks"
         return cell
     }
     
