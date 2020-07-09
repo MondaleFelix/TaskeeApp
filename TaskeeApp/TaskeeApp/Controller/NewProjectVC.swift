@@ -9,15 +9,18 @@
 import UIKit
 
 class NewProjectVC: UIViewController {
-
-    let projectNameTF = MFTextField(placeholder: "Name your project")
     
+        
+    let projectNameTF = MFTextField(placeholder: "Name your project")
+    let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addBarButton()
         configure()
-        
+        configureCollectionView()
+
     }
     
 
@@ -36,6 +39,25 @@ class NewProjectVC: UIViewController {
     }
     
     
+    private func configureCollectionView(){
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .systemBackground
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "ColorCell")
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        NSLayoutConstraint.activate([
+
+            collectionView.topAnchor.constraint(equalTo: projectNameTF.bottomAnchor,constant: 20),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 50),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+        
+        ])
+    }
+    
     // Adds "Save" button to Navigation Controller
     private func addBarButton(){
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveButtonPressed))
@@ -48,3 +70,51 @@ class NewProjectVC: UIViewController {
 
     }
 }
+
+extension NewProjectVC: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorCell", for: indexPath)
+        cell.backgroundColor = .red
+        cell.layer.cornerRadius = cell.frame.size.width / 2
+        cell.clipsToBounds = true
+        return cell
+    }
+    
+}
+
+extension NewProjectVC: UICollectionViewDelegateFlowLayout {
+    
+    //1
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+      //2
+      return CGSize(width: 60  , height: 60)
+    }
+    
+    //3
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+      return  UIEdgeInsets(top: 20 , left: 20  ,  bottom: 20, right: 20)
+    }
+    
+    // 4
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20.0
+    }
+}
+
+
