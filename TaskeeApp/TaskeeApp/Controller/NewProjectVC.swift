@@ -10,7 +10,8 @@ import UIKit
 
 class NewProjectVC: UIViewController {
     
-        
+    let colorsList = ColorsList().colorsList
+    
     let projectNameTF = MFTextField(placeholder: "Name your project")
     let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
 
@@ -71,6 +72,13 @@ class NewProjectVC: UIViewController {
     }
 }
 
+extension NewProjectVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath)
+    }
+    
+}
+
 extension NewProjectVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -84,7 +92,7 @@ extension NewProjectVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorCell", for: indexPath)
-        cell.backgroundColor = .red
+        cell.backgroundColor = self.colorsList[indexPath.row]
         cell.layer.cornerRadius = cell.frame.size.width / 2
         cell.clipsToBounds = true
         return cell

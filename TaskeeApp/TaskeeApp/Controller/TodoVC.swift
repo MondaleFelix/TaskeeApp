@@ -67,7 +67,7 @@ class TodoVC: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Task", style: .done, target: self, action: #selector(addTaskPressed))
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Return", style: .done, target: self, action: #selector(returnButtonPressed))
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Return", style: .done, target: self, action: #selector(returnButtonPressed))
 
     }
     

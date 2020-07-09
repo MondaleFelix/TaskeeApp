@@ -29,10 +29,13 @@ class HomeVC: UIViewController {
     private func configureTableView(){
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ProjectCell")
+        tableView.register(ProjectTableViewCell.self, forCellReuseIdentifier: "ProjectCell")
         tableView.delegate = self
         tableView.dataSource = self
-        
+        tableView.rowHeight = 100
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+
+
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -56,17 +59,19 @@ class HomeVC: UIViewController {
 }
 
 extension HomeVC: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigationController?.pushViewController(TodoVC(), animated: true)
+    }
 }
 
 extension HomeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath)
-        cell.backgroundColor = .red
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath) as! ProjectTableViewCell
+        cell.colorView.backgroundColor = UIColor(red: 255/255, green: 193/255, blue: 79/255, alpha: 1)
         return cell
     }
     
