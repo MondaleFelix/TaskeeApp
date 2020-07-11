@@ -82,17 +82,17 @@ extension NewProjectVC: UICollectionViewDelegate {
 extension NewProjectVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return colorsList.count
     }
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorCell", for: indexPath)
-        cell.backgroundColor = self.colorsList[indexPath.row]
+        cell.backgroundColor = self.colorsList[indexPath.item]
         cell.layer.cornerRadius = cell.frame.size.width / 2
         cell.clipsToBounds = true
         return cell

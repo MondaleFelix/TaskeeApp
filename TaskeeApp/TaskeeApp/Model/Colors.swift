@@ -24,5 +24,5 @@ struct Colors {
 
 struct ColorsList {
 
-    let colorsList: [UIColor] = [Colors.init().purple,Colors.init().green,Colors.init().blue,Colors.init().pink,Colors.init().orange,Colors.init().red,Colors.init().lightGray,Colors.init().gray,Colors.init().black,]
+    let colorsList: [UIColor] = [Colors.init().purple,Colors.init().green,Colors.init().blue,Colors.init().pink,Colors.init().orange,Colors.init().red,Colors.init().lightGray,Colors.init().gray,Colors.init().black]
 }

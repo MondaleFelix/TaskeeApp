@@ -9,7 +9,8 @@
 import UIKit
 
 class ProjectTableViewCell: UITableViewCell {
-
+    
+    
     let colorView = UIView()
     let projectNameLabel = UILabel()
     let taskLabel = UILabel()
