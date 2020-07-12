@@ -19,6 +19,8 @@
 		6F468CA924B4413400572BC4 /* NewProjectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F468CA824B4413400572BC4 /* NewProjectVC.swift */; };
 		6F468CAE24B460C400572BC4 /* MFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F468CAD24B460C400572BC4 /* MFTextField.swift */; };
 		6F6D33EC24BB5A3700D57F28 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6D33EB24BB5A3700D57F28 /* TaskTableViewCell.swift */; };
+		6F6D33EE24BB8E8D00D57F28 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6D33ED24BB8E8D00D57F28 /* Project.swift */; };
+		6F6D33F024BB8F4000D57F28 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6D33EF24BB8F4000D57F28 /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		6F468CA824B4413400572BC4 /* NewProjectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectVC.swift; sourceTree = "<group>"; };
 		6F468CAD24B460C400572BC4 /* MFTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFTextField.swift; sourceTree = "<group>"; };
 		6F6D33EB24BB5A3700D57F28 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		6F6D33ED24BB8E8D00D57F28 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		6F6D33EF24BB8F4000D57F28 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				6F3904CE24B4798C00691D9E /* Colors.swift */,
+				6F6D33ED24BB8E8D00D57F28 /* Project.swift */,
+				6F6D33EF24BB8F4000D57F28 /* Task.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -183,9 +189,11 @@
 				6F3904D524B5D84500691D9E /* TodoVC.swift in Sources */,
 				6F6D33EC24BB5A3700D57F28 /* TaskTableViewCell.swift in Sources */,
 				6F3904D724B5E5BB00691D9E /* NewTaskVC.swift in Sources */,
+				6F6D33F024BB8F4000D57F28 /* Task.swift in Sources */,
 				6F3904CF24B4798C00691D9E /* Colors.swift in Sources */,
 				6F1DD3CD24AAA9D900B24B33 /* AppDelegate.swift in Sources */,
 				6F1DD3CF24AAA9D900B24B33 /* SceneDelegate.swift in Sources */,
+				6F6D33EE24BB8E8D00D57F28 /* Project.swift in Sources */,
 				6F468CA924B4413400572BC4 /* NewProjectVC.swift in Sources */,
 				6F3904D924B7289000691D9E /* ProjectTableViewCell.swift in Sources */,
 				6F468CAE24B460C400572BC4 /* MFTextField.swift in Sources */,
