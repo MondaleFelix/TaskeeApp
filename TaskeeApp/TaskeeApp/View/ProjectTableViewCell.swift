@@ -27,13 +27,6 @@ class ProjectTableViewCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
     }
     
-    init(color: UIColor, projectName: String, numberOfTask: Int) {
-        super.init(style: .default, reuseIdentifier: "ProjectCell")
-        
-        self.colorView.backgroundColor = color
-        self.projectNameLabel.text = projectName
-        
-    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

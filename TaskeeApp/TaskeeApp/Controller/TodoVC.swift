@@ -54,9 +54,18 @@ class TodoVC: UIViewController {
     private func configureTableView(){
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.rowHeight = 50
+        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: "TaskCell")
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+
         
         NSLayoutConstraint.activate([
-            
+            tableView.topAnchor.constraint(equalTo: doneToggle.bottomAnchor, constant: 25),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         
         ])
     }
@@ -80,5 +89,25 @@ class TodoVC: UIViewController {
     @objc func returnButtonPressed(){
         self.navigationController?.viewControllers = [HomeVC()]
     }
+    
+}
+
+extension TodoVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskTableViewCell
+        cell.taskLabel.text = "Mondale is cool"
+        return cell
+    }
+    
+    
+
+}
+
+extension TodoVC: UITableViewDelegate {
+    
     
 }
