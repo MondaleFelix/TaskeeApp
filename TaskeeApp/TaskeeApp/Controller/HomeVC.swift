@@ -45,13 +45,14 @@ class HomeVC: UIViewController {
         
     }
     
+    // Adds "New" to the Navigation Controller
     private func addBarItem(){
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "New", style: .done, target: self, action: #selector(newButtonPressed))
     }
 
     
+    // Pushes
     @objc func newButtonPressed(){
-        
         navigationController?.pushViewController(NewProjectVC(), animated: true)
     }
     
