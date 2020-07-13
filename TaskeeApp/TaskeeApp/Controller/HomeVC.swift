@@ -77,5 +77,12 @@ extension HomeVC: UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
+//
+//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//        <#code#>
+//    }
 }

@@ -11,5 +11,18 @@ import UIKit
 struct Project {
     var name: String
     var color: UIColor
-    var tasksList: [Task]
+    var tasksList: [Task] = []
+}
+
+struct ProjectList {
+    var projectList : [Project] = []
+    
+    mutating func deleteProject(index: Int) {
+        projectList.remove(at: index)
+    }
+     
+    mutating func addProject(name: String, color: UIColor){
+        projectList.append(Project(name: name, color: color))
+        print(self.projectList)
+    }
 }
