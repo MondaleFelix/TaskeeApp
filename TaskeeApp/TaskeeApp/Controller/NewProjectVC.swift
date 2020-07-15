@@ -11,16 +11,19 @@ import UIKit
 class NewProjectVC: UIViewController {
     
     let colorsList = ColorsList().colorsList
-    
     let projectNameTF = MFTextField(placeholder: "Name your project")
     let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
-
+    
+    var coreDataStack: CoreDataStack?
+    var project: Project?
+    var setColor: UIColor = .white
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addBarButton()
         configure()
         configureCollectionView()
+        
 
     }
     
@@ -67,6 +70,15 @@ class NewProjectVC: UIViewController {
     
     // Saves Project Model
     @objc func saveButtonPressed(){
+        if project == nil{
+            let newProject = Project(context: coreDataStack!.managedContext)
+            newProject.name = projectNameTF.text
+            newProject.color = setColor
+            coreDataStack?.saveContext()
+        }else{
+            project?.name = projectNameTF.text
+            project?.color = setColor
+        }
         self.navigationController?.popViewController(animated: true)
 
     }

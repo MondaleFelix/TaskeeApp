@@ -7,10 +7,24 @@
 //
 
 import UIKit
+import CoreData
 
 class HomeVC: UIViewController {
 
     let tableView = UITableView()
+    var coreDataStack = CoreDataStack()
+    
+    lazy var fetchedResultsController: NSFetchedResultsController<Project> = {
+        let fetchRequest: NSFetchRequest<Project> = Project.fetchRequest()
+        fetchRequest.sortDescriptors = []
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: coreDataStack.managedContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        fetchedResultsController.delegate = self
+        return fetchedResultsController
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +33,18 @@ class HomeVC: UIViewController {
         configureTableView()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchResults()
+    }
+    
+    func fetchResults(){
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("error")
+        }
+    }
 
     private func configure(){
         view.backgroundColor = .systemBackground
@@ -53,7 +79,10 @@ class HomeVC: UIViewController {
     
     // Pushes
     @objc func newButtonPressed(){
-        navigationController?.pushViewController(NewProjectVC(), animated: true)
+        let vc = NewProjectVC()
+        vc.coreDataStack = coreDataStack
+        navigationController?.pushViewController(vc, animated: true)
+
     }
     
     
@@ -67,14 +96,17 @@ extension HomeVC: UITableViewDelegate {
 
 extension HomeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        guard let sectionInfo =
+            fetchedResultsController.sections?[section] else {
+                return 0
+        }
+        return sectionInfo.numberOfObjects
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath) as! ProjectTableViewCell
-        cell.colorView.backgroundColor = UIColor(red: 255/255, green: 193/255, blue: 79/255, alpha: 1)
-        cell.projectNameLabel.text = "SPD Industry collaboration Project"
-        cell.taskLabel.text = "5 pending tasks"
+        configure(cell: cell, for: indexPath)
         return cell
     }
     
@@ -86,4 +118,47 @@ extension HomeVC: UITableViewDataSource {
 //    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 //        <#code#>
 //    }
+}
+
+extension HomeVC{
+    func configure(cell: UITableViewCell, for indexPath: IndexPath){
+        guard let cell = cell as? ProjectTableViewCell else { return }
+        let project = fetchedResultsController.object(at: indexPath)
+        cell.projectNameLabel.text = project.name
+        cell.taskLabel.text = "0 pending tasks"
+
+        if let colorTag = project.color {
+            cell.colorView.backgroundColor = colorTag
+        } else {
+            cell.colorView.backgroundColor = nil
+        }
+    }
+}
+
+
+extension HomeVC: NSFetchedResultsControllerDelegate{
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+      tableView.beginUpdates()
+    }
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?) {
+      switch type {
+      case .insert:
+        tableView.insertRows(at: [newIndexPath!], with: .automatic)
+      case .delete:
+        tableView.deleteRows(at: [indexPath!], with: .automatic)
+      case .update:
+        let cell = tableView.cellForRow(at: indexPath!) as! ProjectTableViewCell
+        configure(cell: cell, for: indexPath!)
+      case .move:
+        tableView.deleteRows(at: [indexPath!], with: .automatic)
+        tableView.insertRows(at: [newIndexPath!], with: .automatic)
+      }
+    }
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+      tableView.endUpdates()
+    }
 }
