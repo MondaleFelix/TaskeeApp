@@ -31,11 +31,14 @@ class HomeVC: UIViewController {
         configure()
         addBarItem()
         configureTableView()
+        tableView.reloadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchResults()
+        tableView.reloadData()
+
     }
     
     func fetchResults(){
@@ -44,6 +47,7 @@ class HomeVC: UIViewController {
         } catch {
             print("error")
         }
+
     }
 
     private func configure(){
@@ -92,6 +96,7 @@ class HomeVC: UIViewController {
     
 }
 
+//MARK: Delegate
 extension HomeVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
@@ -107,6 +112,7 @@ extension HomeVC: UITableViewDelegate {
         } else {
             
             let project = fetchedResultsController.object(at: indexPath)
+//            print(project)
             navigationController?.pushViewController(TodoVC(project: project), animated: true)
 
         }
@@ -126,6 +132,7 @@ extension HomeVC: UITableViewDelegate {
     }
 }
 
+//MARK: Table View data Source
 extension HomeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sectionInfo =

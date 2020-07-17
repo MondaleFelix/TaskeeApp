@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class TodoVC: UIViewController, NSFetchedResultsControllerDelegate {
+class TodoVC: UIViewController{
     
     let doneToggle = UISegmentedControl()
     let tableView = UITableView()
@@ -33,12 +33,17 @@ class TodoVC: UIViewController, NSFetchedResultsControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fetchResultsTodo()
+        
+        tableView.reloadData()
     }
     
+    
     func fetchResultsTodo(){
-        fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "relationship = %@", project)
-        fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "status = false")
+        let relationship = NSPredicate(format: "relationship = %@", project)
+        let status = NSPredicate(format: "status = false")
 
+        fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [relationship,status])
         do {
             try fetchedResultsController.performFetch()
         } catch {
@@ -47,9 +52,10 @@ class TodoVC: UIViewController, NSFetchedResultsControllerDelegate {
     }
     
     func fetchResultsDone(){
-        fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "relationship = %@", project)
-        fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "status = true")
+        let relationship = NSPredicate(format: "relationship = %@", project)
+        let status = NSPredicate(format: "status = true")
 
+        fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [relationship,status])
         do {
             try fetchedResultsController.performFetch()
         } catch {
@@ -75,6 +81,8 @@ class TodoVC: UIViewController, NSFetchedResultsControllerDelegate {
         configureDoneToggle()
         configureTableView()
         addBarButtons()
+        fetchResultsTodo()
+        tableView.reloadData()
     }
     
     
@@ -131,8 +139,7 @@ class TodoVC: UIViewController, NSFetchedResultsControllerDelegate {
     func addBarButtons(){
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Task", style: .done, target: self, action: #selector(addTaskPressed))
-        
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Return", style: .done, target: self, action: #selector(returnButtonPressed))
+
 
     }
     
@@ -140,10 +147,10 @@ class TodoVC: UIViewController, NSFetchedResultsControllerDelegate {
     @objc func changeUp(){
             switch doneToggle.selectedSegmentIndex {
             case 0:
-//                fetchTodoTasks()
+                fetchResultsTodo()
                 tableView.reloadData()
             case 1:
-//                fetchDoneTasks()
+                fetchResultsDone()
                 tableView.reloadData()
             default:
                 break
@@ -176,8 +183,10 @@ extension TodoVC: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let task = fetchedResultsController.object(at: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskTableViewCell
-        cell.taskLabel.text = "Mondale is cool"
+        cell.taskLabel.text = task.title
+        print(task.relationship)
         return cell
     }
     
@@ -200,6 +209,34 @@ extension TodoVC: UITableViewDelegate {
         if editingStyle == .delete {
             coreDataStack.managedContext.delete(fetchedResultsController.object(at: indexPath))
             coreDataStack.saveContext()
+//            tableView.reloadData()
         }
+    }
+}
+
+extension TodoVC: NSFetchedResultsControllerDelegate{
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+      tableView.beginUpdates()
+    }
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?) {
+      switch type {
+      case .insert:
+        tableView.insertRows(at: [newIndexPath!], with: .automatic)
+      case .delete:
+        tableView.deleteRows(at: [indexPath!], with: .automatic)
+      case .update:
+        let cell = tableView.cellForRow(at: indexPath!) as! TaskTableViewCell
+        //configure
+      case .move:
+        tableView.deleteRows(at: [indexPath!], with: .automatic)
+        tableView.insertRows(at: [newIndexPath!], with: .automatic)
+      }
+    }
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+      tableView.endUpdates()
     }
 }
