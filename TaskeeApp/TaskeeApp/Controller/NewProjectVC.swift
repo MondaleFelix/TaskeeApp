@@ -24,10 +24,18 @@ class NewProjectVC: UIViewController {
         configure()
         configureCollectionView()
         
+        if project != nil {
+            setupValues()
+        }
 
     }
     
 
+    func setupValues(){
+      guard let project = project else { return }
+        projectNameTF.text = project.name
+    }
+    
     // UI Setup
     private func configure(){
         title = "New Project"
@@ -86,7 +94,7 @@ class NewProjectVC: UIViewController {
 
 extension NewProjectVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
+        setColor = colorsList[indexPath.item]
     }
     
 }

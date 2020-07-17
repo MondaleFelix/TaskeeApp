@@ -2,7 +2,7 @@
 //  Project+CoreDataProperties.swift
 //  TaskeeApp
 //
-//  Created by Mondale on 7/15/20.
+//  Created by Mondale on 7/17/20.
 //  Copyright © 2020 Mondale. All rights reserved.
 //
 //
@@ -17,7 +17,6 @@ extension Project {
         return NSFetchRequest<Project>(entityName: "Project")
     }
 
-    @NSManaged public var task: Int64
     @NSManaged public var color: UIColor?
     @NSManaged public var name: String?
     @NSManaged public var relationship: NSSet?

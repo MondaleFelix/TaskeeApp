@@ -12,7 +12,7 @@ import CoreData
 class HomeVC: UIViewController {
 
     let tableView = UITableView()
-    var coreDataStack = CoreDataStack()
+    var coreDataStack = CoreDataStack.shared
     
     lazy var fetchedResultsController: NSFetchedResultsController<Project> = {
         let fetchRequest: NSFetchRequest<Project> = Project.fetchRequest()
@@ -49,6 +49,7 @@ class HomeVC: UIViewController {
     private func configure(){
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
+        
     }
     
     
@@ -60,7 +61,7 @@ class HomeVC: UIViewController {
         tableView.dataSource = self
         tableView.rowHeight = 100
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-
+        tableView.allowsSelectionDuringEditing = true
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -74,6 +75,9 @@ class HomeVC: UIViewController {
     // Adds "New" to the Navigation Controller
     private func addBarItem(){
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "New", style: .done, target: self, action: #selector(newButtonPressed))
+        navigationItem.leftBarButtonItem = editButtonItem
+
+
     }
 
     
@@ -90,7 +94,35 @@ class HomeVC: UIViewController {
 
 extension HomeVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(TodoVC(), animated: true)
+
+        
+        if tableView.isEditing == true {
+            let vc = NewProjectVC()
+            let project = fetchedResultsController.object(at: indexPath)
+            vc.project = project
+            vc.coreDataStack = coreDataStack
+            navigationController?.pushViewController(vc, animated: true)
+            
+            
+        } else {
+            
+            let project = fetchedResultsController.object(at: indexPath)
+            navigationController?.pushViewController(TodoVC(project: project), animated: true)
+
+        }
+        
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool){
+        super.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            coreDataStack.managedContext.delete(fetchedResultsController.object(at: indexPath))
+            coreDataStack.saveContext()
+        }
     }
 }
 
@@ -124,8 +156,9 @@ extension HomeVC{
     func configure(cell: UITableViewCell, for indexPath: IndexPath){
         guard let cell = cell as? ProjectTableViewCell else { return }
         let project = fetchedResultsController.object(at: indexPath)
+        let taskNumber = project.relationship as! Set<Task>
         cell.projectNameLabel.text = project.name
-        cell.taskLabel.text = "0 pending tasks"
+        cell.taskLabel.text = "\(taskNumber.count) pending tasks"
 
         if let colorTag = project.color {
             cell.colorView.backgroundColor = colorTag
@@ -158,6 +191,7 @@ extension HomeVC: NSFetchedResultsControllerDelegate{
         tableView.insertRows(at: [newIndexPath!], with: .automatic)
       }
     }
+    
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
       tableView.endUpdates()
     }

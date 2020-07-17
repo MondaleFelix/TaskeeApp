@@ -2,7 +2,7 @@
 //  Task+CoreDataProperties.swift
 //  TaskeeApp
 //
-//  Created by Mondale on 7/15/20.
+//  Created by Mondale on 7/17/20.
 //  Copyright © 2020 Mondale. All rights reserved.
 //
 //
@@ -20,6 +20,7 @@ extension Task {
     @NSManaged public var dueDate: Date?
     @NSManaged public var status: Bool
     @NSManaged public var title: String?
+    @NSManaged public var projectName: String?
     @NSManaged public var relationship: Project?
 
 }

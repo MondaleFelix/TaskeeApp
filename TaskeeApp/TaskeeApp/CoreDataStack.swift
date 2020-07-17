@@ -11,6 +11,8 @@ import CoreData
 
 class CoreDataStack {
     
+    static let shared = CoreDataStack()
+    
     private let modelName: String //create a private property to store the modelName
     
     //we always need this
@@ -18,7 +20,8 @@ class CoreDataStack {
         return self.storeContainer.viewContext
     }()
     //    modelName: String
-    init() {
+    
+    private init() {
         self.modelName = "TaskeeApp" //initializer needed to save the modelName into the private property
     }
     

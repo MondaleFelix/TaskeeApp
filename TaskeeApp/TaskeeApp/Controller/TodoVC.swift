@@ -7,12 +7,68 @@
 //
 
 import UIKit
+import CoreData
 
-class TodoVC: UIViewController {
+class TodoVC: UIViewController, NSFetchedResultsControllerDelegate {
     
     let doneToggle = UISegmentedControl()
     let tableView = UITableView()
+    var coreDataStack = CoreDataStack.shared
+    var project: Project
+
     
+    lazy var fetchedResultsController: NSFetchedResultsController<Task> = {
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+//        fetchRequest.predicate = NSPredicate(format: "projectName == %@", project.name ?? "")
+        fetchRequest.sortDescriptors = []
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: coreDataStack.managedContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        fetchedResultsController.delegate = self
+        return fetchedResultsController
+    }()
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    func fetchResultsTodo(){
+        fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "relationship = %@", project)
+        fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "status = false")
+
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("error")
+        }
+    }
+    
+    func fetchResultsDone(){
+        fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "relationship = %@", project)
+        fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "status = true")
+
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("error")
+        }
+    }
+
+    // This extends the superclass.
+    init(project: Project) {
+        self.project = project
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -38,7 +94,7 @@ class TodoVC: UIViewController {
         doneToggle.insertSegment(withTitle: "DONE", at: 1, animated: true)
         doneToggle.selectedSegmentIndex = 0
         doneToggle.sendActions(for: UIControl.Event.valueChanged)
-
+        doneToggle.addTarget(self, action: #selector(changeUp), for: .valueChanged)
         
         NSLayoutConstraint.activate([
             doneToggle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
@@ -80,9 +136,23 @@ class TodoVC: UIViewController {
 
     }
     
+    //MARK: Actions
+    @objc func changeUp(){
+            switch doneToggle.selectedSegmentIndex {
+            case 0:
+//                fetchTodoTasks()
+                tableView.reloadData()
+            case 1:
+//                fetchDoneTasks()
+                tableView.reloadData()
+            default:
+                break
+            }
+        }
+    
     
     @objc func addTaskPressed(){
-        navigationController?.pushViewController(NewTaskVC(), animated: true)
+        navigationController?.pushViewController(NewTaskVC(project:project), animated: true)
         
     }
     
@@ -92,10 +162,18 @@ class TodoVC: UIViewController {
     
 }
 
+//MARK: Extensions3
 extension TodoVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        guard let tasksCount =
+            fetchedResultsController.fetchedObjects?.count else {
+                return 0
+        }
+        return tasksCount
+        
     }
+    
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskTableViewCell
@@ -109,5 +187,19 @@ extension TodoVC: UITableViewDataSource {
 
 extension TodoVC: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = NewTaskVC(project: project)
+        let task = fetchedResultsController.object(at: indexPath)
+        vc.project = project
+        vc.task = task
+        vc.coreDataStack = coreDataStack
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            coreDataStack.managedContext.delete(fetchedResultsController.object(at: indexPath))
+            coreDataStack.saveContext()
+        }
+    }
 }
