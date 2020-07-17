@@ -186,7 +186,18 @@ extension TodoVC: UITableViewDataSource {
         let task = fetchedResultsController.object(at: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskTableViewCell
         cell.taskLabel.text = task.title
-        print(task.relationship)
+        cell.completed = {
+            
+            if task.status {
+                task.status = false
+                self.coreDataStack.saveContext()
+                self.tableView.reloadData()
+            }else{
+                task.status = true
+                self.coreDataStack.saveContext()
+                self.tableView.reloadData()
+            }
+        }
         return cell
     }
     
@@ -202,7 +213,9 @@ extension TodoVC: UITableViewDelegate {
         vc.project = project
         vc.task = task
         vc.coreDataStack = coreDataStack
+
         navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

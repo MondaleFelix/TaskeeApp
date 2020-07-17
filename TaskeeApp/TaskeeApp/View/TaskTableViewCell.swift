@@ -12,21 +12,35 @@ class TaskTableViewCell: UITableViewCell {
 
     let checkboxImageView = UIImageView()
     let taskLabel = UILabel()
+    var completed: (()-> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style:style, reuseIdentifier: "TaskCell")
         configure()
+        addAction()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    func addAction() {
+        checkboxImageView.isUserInteractionEnabled = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        checkboxImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func imageTapped(){
+        completed!()
+    }
+    
     private func configure(){
         contentView.addSubview(checkboxImageView)
         contentView.addSubview(taskLabel)
         selectionStyle = .none
-
+        
         checkboxImageView.translatesAutoresizingMaskIntoConstraints = false
         taskLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -34,10 +48,20 @@ class TaskTableViewCell: UITableViewCell {
         checkboxImageView.backgroundColor = .systemGreen
         checkboxImageView.layer.cornerRadius = 10
         
+//        cell.tapCheck = {
+//            if task.status {
+//                task.status = false
+//                self.coreDataStack.saveContext()
+//                self.taskTable.reloadData()
+//            }else{
+//                task.status = true
+//                self.coreDataStack.saveContext()
+//                self.taskTable.reloadData()
+//            }
+//        }
+//        
         taskLabel.font = UIFont(name: "Helvetica", size: 20)
 
-        
-        
         
         NSLayoutConstraint.activate([
             
