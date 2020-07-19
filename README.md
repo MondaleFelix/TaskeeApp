@@ -6,7 +6,7 @@ Taskee App is a native iOS application that stores projects and tasks using Appl
 
 ## Getting Started
 
-PLU Trainer is currently not shipped to the Apple App store. To use PLU Trainer, clone the repo and run it on your local machine.
+Taskee App is currently not shipped to the Apple App store. To use Taskee App, clone the repo and run it on your local machine.
 
 ### Prerequisites
 
@@ -33,7 +33,7 @@ Open the project with Xcode
 $ open TaskeeApp.xcodeproj/
 ```
 
-Run the simulater:
+Run the simulator:
 
 ```
 Command + R 
