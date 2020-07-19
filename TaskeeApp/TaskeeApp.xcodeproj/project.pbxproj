@@ -64,10 +64,6 @@
 		6F1DD3C024AAA9D900B24B33 = {
 			isa = PBXGroup;
 			children = (
-				6FDE8D4424C21CFE005FB86D /* Project+CoreDataProperties.swift */,
-				6FDE8D4224C21C4C005FB86D /* Task+CoreDataProperties.swift */,
-				6F14048224BF7A7100FAC305 /* Task+CoreDataClass.swift */,
-				6F14048424BF7A7100FAC305 /* Project+CoreDataClass.swift */,
 				6F1DD3CB24AAA9D900B24B33 /* TaskeeApp */,
 				6F1DD3CA24AAA9D900B24B33 /* Products */,
 			);
@@ -101,6 +97,10 @@
 		6F468CAA24B4602200572BC4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6FDE8D4424C21CFE005FB86D /* Project+CoreDataProperties.swift */,
+				6F14048424BF7A7100FAC305 /* Project+CoreDataClass.swift */,
+				6F14048224BF7A7100FAC305 /* Task+CoreDataClass.swift */,
+				6FDE8D4224C21C4C005FB86D /* Task+CoreDataProperties.swift */,
 				6F3904CE24B4798C00691D9E /* Colors.swift */,
 			);
 			path = Model;

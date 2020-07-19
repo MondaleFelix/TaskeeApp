@@ -1,8 +1,8 @@
-# PLU Trainer 📰
-![Sideline image](https://image.cnbcfm.com/api/v1/image/104538092-GettyImages-567383597-whole-foods.jpg?v=1532563818&w=678&h=381)
+# Taskee App 📝
+![Sideline image](https://i.ibb.co/R3wxXLx/mokcup.jpg)
 
 ### Description:
-Native iOS application that recognizes produce and returns the associated lookup code. Also has a quiz component, where users can add and train themselves to memorize PLU codes.
+Taskee App is a native iOS application that stores projects and tasks using Apple's framework Core Data
 
 ## Getting Started
 
@@ -18,19 +18,19 @@ PLU Trainer is currently not shipped to the Apple App store. To use PLU Trainer,
 Clone this repository   (Don't include the $. This symbol indicates that you need to write this command in the commandline in this repository):
 
 ```
-$ git clone https://github.com/MondaleFelix/PLUTrainer
+$ git clone https://github.com/MondaleFelix/TaskeeApp
 ```
 
 Traverse into the this repository:
 
 ```
-$ cd /path/to/file/PLUTrainer/PLUTrainer
+$ cd /path/to/file/PLUTrainer/TaskeeApp
 ```
 
 Open the project with Xcode
 
 ```
-$ open PLUTrainer.xcodeproj/
+$ open TaskeeApp.xcodeproj/
 ```
 
 Run the simulater:
