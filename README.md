@@ -24,7 +24,7 @@ $ git clone https://github.com/MondaleFelix/TaskeeApp
 Traverse into the this repository:
 
 ```
-$ cd /path/to/file/PLUTrainer/TaskeeApp
+$ cd /path/to/file/TaskeeApp/TaskeeApp
 ```
 
 Open the project with Xcode
